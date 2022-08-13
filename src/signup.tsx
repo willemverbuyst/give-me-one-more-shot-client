@@ -11,18 +11,28 @@ import {
   Typography,
 } from '@mui/material'
 import { useEffect } from 'react'
-import {
-  Controller,
-  FieldError,
-  FieldValues,
-  SubmitHandler,
-  UseControllerProps,
-  useForm,
-  useFormState,
-} from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+
+enum Gender {
+  Female,
+  Male,
+  Other,
+}
 
 type Inputs = {
-  familyName: string
+  BSN?: string
+  email?: string
+  familyName?: string
+  gender?: Gender
+  givenName?: string
+}
+
+const defaultValues = {
+  BSN: '',
+  email: '',
+  familyName: '',
+  gender: Gender.Other,
+  givenName: '',
 }
 
 function Signup(): JSX.Element {
@@ -32,15 +42,15 @@ function Signup(): JSX.Element {
     formState,
     formState: { errors, isSubmitSuccessful },
     reset,
-  } = useForm<Inputs>()
+  } = useForm<Inputs>({ defaultValues })
 
   const submitForm: SubmitHandler<Inputs> = (data) => {
-    console.log(data.familyName)
+    console.log(data)
   }
 
   useEffect(() => {
-    if (formState.isSubmitSuccessful) {
-      reset()
+    if (isSubmitSuccessful) {
+      reset(defaultValues)
     }
   }, [formState, reset])
 
@@ -75,34 +85,95 @@ function Signup(): JSX.Element {
             </>
           )}
           name="familyName"
-          defaultValue=""
         />
 
-        {/* <TextField id="givenName" label="Given Name" variant="outlined" />
-        <TextField
-          id="birthDate"
-          label="BirthDate (dd/mm/yyyy)"
-          variant="outlined"
+        <Controller
+          control={control}
+          rules={{ required: 'this field is required' }}
+          render={({ field }) => (
+            <>
+              <TextField
+                {...field}
+                id="givenName"
+                label="Given Name"
+                variant="outlined"
+              />
+              {errors && (
+                <Typography color="error">
+                  {errors?.givenName?.message}
+                </Typography>
+              )}
+            </>
+          )}
+          name="givenName"
         />
-        <FormControl>
-          <FormLabel id="genderRadioButtonsGroupLabel">Gender</FormLabel>
-          <RadioGroup
-            row
-            aria-labelledby="genderRadioButtonsGroupLabel"
-            defaultValue="other"
-            name="radioButtonsGroup"
-          >
-            <FormControlLabel
-              value="female"
-              control={<Radio />}
-              label="Female"
-            />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="other" control={<Radio />} label="Other" />
-          </RadioGroup>
-        </FormControl>
-        <TextField id="email" label="Email" variant="outlined" />
-        <TextField id="BSN" label="BSN" variant="outlined" /> */}
+
+        <Controller
+          control={control}
+          render={({ field }) => (
+            <FormControl>
+              <FormLabel id="genderRadioButtonsGroupLabel">Gender</FormLabel>
+              <RadioGroup
+                {...field}
+                row
+                aria-labelledby="genderOptionsLabel"
+                name="genderOptions"
+              >
+                <FormControlLabel
+                  value={Gender.Female}
+                  control={<Radio />}
+                  label="Female"
+                />
+                <FormControlLabel
+                  value={Gender.Male}
+                  control={<Radio />}
+                  label="Male"
+                />
+                <FormControlLabel
+                  value={Gender.Other}
+                  control={<Radio />}
+                  label="Other"
+                />
+              </RadioGroup>
+            </FormControl>
+          )}
+          name="gender"
+        />
+
+        <Controller
+          control={control}
+          rules={{ required: 'this field is required' }}
+          render={({ field }) => (
+            <>
+              <TextField
+                {...field}
+                id="email"
+                label="Email"
+                variant="outlined"
+              />
+              {errors && (
+                <Typography color="error">{errors?.email?.message}</Typography>
+              )}
+            </>
+          )}
+          name="email"
+        />
+
+        <Controller
+          control={control}
+          rules={{ required: 'this field is required' }}
+          render={({ field }) => (
+            <>
+              formState
+              <TextField {...field} id="BSN" label="BSN" variant="outlined" />
+              {errors && (
+                <Typography color="error">{errors?.BSN?.message}</Typography>
+              )}
+            </>
+          )}
+          name="BSN"
+        />
+
         <Button variant="contained" disableElevation type="submit">
           signup for shot
         </Button>
