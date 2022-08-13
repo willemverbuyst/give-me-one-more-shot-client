@@ -12,6 +12,20 @@ import {
 } from '@mui/material'
 import { useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { isValidBSN } from 'bsn-js'
+
+const schema = z.object({
+  BSN: z
+    .string()
+    .min(1, { message: 'this field is required' })
+    .refine(isValidBSN, () => ({ message: 'is not valid a valid bsn' })),
+  email: z.string().email(),
+  familyName: z.string().min(1, { message: 'this field is required' }),
+  gender: z.string().min(1, { message: 'this field is required' }),
+  givenName: z.string().min(1, { message: 'this field is required' }),
+})
 
 enum Gender {
   Female,
@@ -42,7 +56,7 @@ function Signup(): JSX.Element {
     formState,
     formState: { errors, isSubmitSuccessful },
     reset,
-  } = useForm<Inputs>({ defaultValues })
+  } = useForm<Inputs>({ defaultValues, resolver: zodResolver(schema) })
 
   const submitForm: SubmitHandler<Inputs> = (data) => {
     console.log(data)
@@ -68,7 +82,6 @@ function Signup(): JSX.Element {
       >
         <Controller
           control={control}
-          rules={{ required: 'this field is required' }}
           render={({ field }) => (
             <>
               <TextField
@@ -89,7 +102,6 @@ function Signup(): JSX.Element {
 
         <Controller
           control={control}
-          rules={{ required: 'this field is required' }}
           render={({ field }) => (
             <>
               <TextField
@@ -142,7 +154,6 @@ function Signup(): JSX.Element {
 
         <Controller
           control={control}
-          rules={{ required: 'this field is required' }}
           render={({ field }) => (
             <>
               <TextField
@@ -161,10 +172,8 @@ function Signup(): JSX.Element {
 
         <Controller
           control={control}
-          rules={{ required: 'this field is required' }}
           render={({ field }) => (
             <>
-              formState
               <TextField {...field} id="BSN" label="BSN" variant="outlined" />
               {errors && (
                 <Typography color="error">{errors?.BSN?.message}</Typography>
