@@ -1,12 +1,13 @@
+import { Box, Typography } from '@mui/material'
 import './App.css'
+import Signup from './signup'
 
 function App() {
   return (
-    <div className="min-h-screen flex justify-center items-center">
-      <h1 className="text-3xl font-bold text-black-600">
-        Give me one more shot
-      </h1>
-    </div>
+    <Box>
+      <Typography variant="h1">Give me one more shot</Typography>
+      <Signup />
+    </Box>
   )
 }
 
