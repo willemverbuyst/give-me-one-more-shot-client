@@ -6,6 +6,7 @@ import Box from '@mui/material/Box'
 import Home from './home'
 import List from './list'
 import Signup from './signup'
+import { Grid } from '@mui/material'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -44,27 +45,36 @@ export default function BasicTabs() {
   }
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
+    <Grid xs={6} display="flex" item justifyContent="center">
+      <Box sx={{ width: '100%' }}>
+        <Grid
+          sx={{ borderBottom: 1, borderColor: 'divider' }}
+          display="flex"
+          item
+          justifyContent="center"
         >
-          <Tab label="Home" {...a11yProps(0)} />
-          <Tab label="List" {...a11yProps(1)} />
-          <Tab label="Signup" {...a11yProps(2)} />
-        </Tabs>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Home" {...a11yProps(0)} />
+            <Tab label="List" {...a11yProps(1)} />
+            <Tab label="Signup" {...a11yProps(2)} />
+          </Tabs>
+        </Grid>
+        <Grid display="flex" item justifyContent="center">
+          <TabPanel value={value} index={0}>
+            <Home />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <List />
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            <Signup />
+          </TabPanel>
+        </Grid>
       </Box>
-      <TabPanel value={value} index={0}>
-        <Home />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <List />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <Signup />
-      </TabPanel>
-    </Box>
+    </Grid>
   )
 }
