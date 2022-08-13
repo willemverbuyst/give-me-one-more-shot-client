@@ -1,9 +1,6 @@
 import { Grid, Typography } from '@mui/material'
-import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Home from './home'
-import List from './list'
-import Signup from './signup'
+import BasicTabs from './tabs'
 
 function App() {
   return (
@@ -12,11 +9,7 @@ function App() {
         <Typography variant="h1">Give me one more shot</Typography>
       </Grid>
       <Grid xs={12} item display="flex" justifyContent="center">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/list" element={<List />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
+        <BasicTabs />
       </Grid>
     </Grid>
   )
