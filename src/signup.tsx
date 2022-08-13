@@ -8,9 +8,42 @@ import {
   RadioGroup,
   Stack,
   TextField,
+  Typography,
 } from '@mui/material'
+import { useEffect } from 'react'
+import {
+  Controller,
+  FieldError,
+  FieldValues,
+  SubmitHandler,
+  UseControllerProps,
+  useForm,
+  useFormState,
+} from 'react-hook-form'
+
+type Inputs = {
+  familyName: string
+}
 
 function Signup(): JSX.Element {
+  const {
+    control,
+    handleSubmit,
+    formState,
+    formState: { errors, isSubmitSuccessful },
+    reset,
+  } = useForm<Inputs>()
+
+  const submitForm: SubmitHandler<Inputs> = (data) => {
+    console.log(data.familyName)
+  }
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset()
+    }
+  }, [formState, reset])
+
   return (
     <Box>
       <Stack
@@ -21,9 +54,31 @@ function Signup(): JSX.Element {
         spacing={2}
         noValidate
         autoComplete="off"
+        onSubmit={handleSubmit(submitForm)}
       >
-        <TextField id="familyName" label="Family Name" variant="outlined" />
-        <TextField id="givenName" label="Given Name" variant="outlined" />
+        <Controller
+          control={control}
+          rules={{ required: 'this field is required' }}
+          render={({ field }) => (
+            <>
+              <TextField
+                {...field}
+                id="familyName"
+                label="Family Name"
+                variant="outlined"
+              />
+              {errors && (
+                <Typography color="error">
+                  {errors?.familyName?.message}
+                </Typography>
+              )}
+            </>
+          )}
+          name="familyName"
+          defaultValue=""
+        />
+
+        {/* <TextField id="givenName" label="Given Name" variant="outlined" />
         <TextField
           id="birthDate"
           label="BirthDate (dd/mm/yyyy)"
@@ -47,8 +102,8 @@ function Signup(): JSX.Element {
           </RadioGroup>
         </FormControl>
         <TextField id="email" label="Email" variant="outlined" />
-        <TextField id="BSN" label="BSN" variant="outlined" />
-        <Button variant="contained" disableElevation>
+        <TextField id="BSN" label="BSN" variant="outlined" /> */}
+        <Button variant="contained" disableElevation type="submit">
           signup for shot
         </Button>
       </Stack>
