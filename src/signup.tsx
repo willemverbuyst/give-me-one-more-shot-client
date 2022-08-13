@@ -19,12 +19,12 @@ import { isValidBSN } from 'bsn-js'
 const schema = z.object({
   BSN: z
     .string()
-    .min(1, { message: 'this field is required' })
-    .refine(isValidBSN, () => ({ message: 'is not valid a valid bsn' })),
+    .min(1, { message: 'This field is required' })
+    .refine(isValidBSN, () => ({ message: 'This not valid a valid bsn' })),
   email: z.string().email(),
-  familyName: z.string().min(1, { message: 'this field is required' }),
-  gender: z.string().min(1, { message: 'this field is required' }),
-  givenName: z.string().min(1, { message: 'this field is required' }),
+  familyName: z.string().min(1, { message: 'This field is required' }),
+  gender: z.string().min(1, { message: 'This field is required' }),
+  givenName: z.string().min(1, { message: 'This field is required' }),
 })
 
 enum Gender {
