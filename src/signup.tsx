@@ -15,8 +15,15 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { isValidBSN } from 'bsn-js'
+import { Gender, Inputs } from './models'
 
 const schema = z.object({
+  birthdate: z
+    .string()
+    .length(10)
+    .regex(/dd\/dd\/dddd/, {
+      message: 'Date is not in the correct format (dd/mm/yyyy)',
+    }),
   BSN: z
     .string()
     .min(1, { message: 'This field is required' })
@@ -27,25 +34,12 @@ const schema = z.object({
   givenName: z.string().min(1, { message: 'This field is required' }),
 })
 
-enum Gender {
-  Female,
-  Male,
-  Other,
-}
-
-type Inputs = {
-  BSN?: string
-  email?: string
-  familyName?: string
-  gender?: Gender
-  givenName?: string
-}
-
 const defaultValues = {
+  birthDate: '',
   BSN: '',
   email: '',
   familyName: '',
-  gender: Gender.Other,
+  gender: Gender.OTHER,
   givenName: '',
 }
 
@@ -123,6 +117,26 @@ function Signup(): JSX.Element {
         <Controller
           control={control}
           render={({ field }) => (
+            <>
+              <TextField
+                {...field}
+                id="birthdate"
+                label="Birthdate (dd/mm/yyyy)"
+                variant="outlined"
+              />
+              {errors && (
+                <Typography color="error">
+                  {errors?.birthdate?.message}
+                </Typography>
+              )}
+            </>
+          )}
+          name="birthdate"
+        />
+
+        <Controller
+          control={control}
+          render={({ field }) => (
             <FormControl>
               <FormLabel id="genderRadioButtonsGroupLabel">Gender</FormLabel>
               <RadioGroup
@@ -132,17 +146,17 @@ function Signup(): JSX.Element {
                 name="genderOptions"
               >
                 <FormControlLabel
-                  value={Gender.Female}
+                  value={Gender.FEMALE}
                   control={<Radio />}
                   label="Female"
                 />
                 <FormControlLabel
-                  value={Gender.Male}
+                  value={Gender.MALE}
                   control={<Radio />}
                   label="Male"
                 />
                 <FormControlLabel
-                  value={Gender.Other}
+                  value={Gender.OTHER}
                   control={<Radio />}
                   label="Other"
                 />
