@@ -15,15 +15,13 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { isValidBSN } from 'bsn-js'
-import { Gender, Inputs } from './models'
+import { Gender, Patient } from './models'
+import { REGEX_BIRTHDATE } from './constants'
 
 const schema = z.object({
-  birthdate: z
-    .string()
-    .length(10)
-    .regex(/dd\/dd\/dddd/, {
-      message: 'Date is not in the correct format (dd/mm/yyyy)',
-    }),
+  birthdate: z.string().min(10).max(10).regex(REGEX_BIRTHDATE, {
+    message: 'Date is not in the correct format (dd/mm/yyyy)',
+  }),
   BSN: z
     .string()
     .min(1, { message: 'This field is required' })
@@ -35,7 +33,7 @@ const schema = z.object({
 })
 
 const defaultValues = {
-  birthDate: '',
+  birthdate: '',
   BSN: '',
   email: '',
   familyName: '',
@@ -50,9 +48,9 @@ function Signup(): JSX.Element {
     formState,
     formState: { errors, isSubmitSuccessful },
     reset,
-  } = useForm<Inputs>({ defaultValues, resolver: zodResolver(schema) })
+  } = useForm<Patient>({ defaultValues, resolver: zodResolver(schema) })
 
-  const submitForm: SubmitHandler<Inputs> = (data) => {
+  const submitForm: SubmitHandler<Patient> = (data) => {
     console.log(data)
   }
 

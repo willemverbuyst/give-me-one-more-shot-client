@@ -4,11 +4,11 @@ export enum Gender {
   OTHER = 'other',
 }
 
-export type Inputs = {
+export type Patient = {
   birthdate: string
-  BSN?: string
-  email?: string
-  familyName?: string
-  gender?: Gender
-  givenName?: string
+  BSN: string
+  email: string
+  familyName: string
+  gender: Gender
+  givenName: string
 }
