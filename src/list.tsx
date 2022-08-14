@@ -5,34 +5,14 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { Gender } from './models'
+import { generateDummyData } from './helpers'
 
-function createData(
-  birthdate: string,
-  BSN: string,
-  email: string,
-  familyName: string,
-  gender: Gender,
-  givenName: string
-) {
-  return { birthdate, BSN, email, familyName, gender, givenName }
-}
-
-const rows = [
-  createData(
-    '12/12/2000',
-    '999998948',
-    'ping@pong.io',
-    'Ping',
-    Gender.FEMALE,
-    'Pong'
-  ),
-]
+const rows = Array.from({ length: 10 }).map(() => generateDummyData())
 
 export default function List() {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 800 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell align="left">Family Name</TableCell>
