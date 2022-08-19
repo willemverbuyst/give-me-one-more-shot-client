@@ -5,12 +5,9 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { generateDummyData } from './helpers'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Patient } from './models'
-
-// const rows = Array.from({ length: 10 }).map(() => generateDummyData())
 
 export default function List() {
   const [patients, setPatients] = useState<Patient[]>([])
