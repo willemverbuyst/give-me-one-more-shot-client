@@ -6,11 +6,24 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { generateDummyData } from './helpers'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { Patient } from './models'
 
-const rows = Array.from({ length: 10 }).map(() => generateDummyData())
+// const rows = Array.from({ length: 10 }).map(() => generateDummyData())
 
 export default function List() {
-  return (
+  const [patients, setPatients] = useState<Patient[]>([])
+  const getPatients = async () => {
+    const { data } = await axios.get('http://localhost:9090/patients')
+    setPatients(data)
+  }
+
+  useEffect(() => {
+    getPatients()
+  }, [])
+
+  return patients ? (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 800 }} aria-label="simple table">
         <TableHead>
@@ -24,23 +37,23 @@ export default function List() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {patients.map((patient) => (
             <TableRow
-              key={row.familyName}
+              key={patient.familyName}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell align="left" component="th" scope="row">
-                {row.familyName}
+                {patient.familyName}
               </TableCell>
-              <TableCell align="left">{row.givenName}</TableCell>
-              <TableCell align="right">{row.birthdate}</TableCell>
-              <TableCell align="left">{row.gender}</TableCell>
-              <TableCell align="left">{row.email}</TableCell>
-              <TableCell align="right">{row.BSN}</TableCell>
+              <TableCell align="left">{patient.givenName}</TableCell>
+              <TableCell align="right">{patient.birthdate}</TableCell>
+              <TableCell align="left">{patient.gender}</TableCell>
+              <TableCell align="left">{patient.email}</TableCell>
+              <TableCell align="right">{patient.BSN}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-  )
+  ) : null
 }
