@@ -5,6 +5,7 @@ export enum Gender {
 }
 
 export type Patient = {
+  id: string
   birthdate: string
   BSN: string
   email: string
