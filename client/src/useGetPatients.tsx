@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import axios, { AxiosResponse } from 'axios'
+import toast from 'react-hot-toast'
 import { axiosInstance } from './axiosInstance'
 import { SERVER_ERROR } from './constants'
 import { ApiError, Patient } from './models'
 import { queryKeys } from './reactQuery/constants'
+
+const notifyError = (message: string) => toast.error(message)
 
 export const getPatients = async (): Promise<Patient[] | null> => {
   try {
@@ -13,8 +16,7 @@ export const getPatients = async (): Promise<Patient[] | null> => {
 
     if (data) return data
 
-    // Make toast
-    console.log({ TOAST: 'no data' })
+    notifyError('no data in response')
     return null
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data) {
@@ -22,7 +24,7 @@ export const getPatients = async (): Promise<Patient[] | null> => {
     } else {
       console.log(SERVER_ERROR)
     }
-    console.log({ TOAST: 'something went wrong' })
+    notifyError('something went wrong')
 
     return null
   }
@@ -30,8 +32,6 @@ export const getPatients = async (): Promise<Patient[] | null> => {
 
 export const useGetPatients = () => {
   const { data } = useQuery([queryKeys.PATIENTS], getPatients)
-
-  const schools = data ? data : []
-
-  return schools
+  const patients = data ? data : []
+  return patients
 }
