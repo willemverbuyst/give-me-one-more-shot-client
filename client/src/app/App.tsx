@@ -6,7 +6,7 @@ import BasicTabs from '../components/tabs'
 import { queryClient } from '../reactQuery/queryClient'
 import './App.css'
 
-function App() {
+function App(): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
       <Grid container spacing={2} columns={12}>

@@ -3,8 +3,8 @@ import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import * as React from 'react'
-import Home from './home'
-import List from './list'
+import Agenda from './agenda'
+import ListOfPatients from './listOfPatients'
 import Signup from './signup'
 
 interface TabPanelProps {
@@ -13,7 +13,7 @@ interface TabPanelProps {
   value: number
 }
 
-function TabPanel(props: TabPanelProps) {
+function TabPanel(props: TabPanelProps): JSX.Element {
   const { children, value, index, ...other } = props
 
   return (
@@ -29,14 +29,14 @@ function TabPanel(props: TabPanelProps) {
   )
 }
 
-function a11yProps(index: number) {
+function a11yProps(index: number): { [key: string]: string } {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
   }
 }
 
-export default function BasicTabs() {
+export default function BasicTabs(): JSX.Element {
   const [value, setValue] = React.useState(0)
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -57,17 +57,17 @@ export default function BasicTabs() {
             onChange={handleChange}
             aria-label="basic tabs example"
           >
-            <Tab label="Home" {...a11yProps(0)} />
-            <Tab label="List" {...a11yProps(1)} />
+            <Tab label="Agenda" {...a11yProps(0)} />
+            <Tab label="Patients" {...a11yProps(1)} />
             <Tab label="Signup" {...a11yProps(2)} />
           </Tabs>
         </Grid>
         <Grid display="flex" item justifyContent="center">
           <TabPanel value={value} index={0}>
-            <Home />
+            <Agenda />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <List />
+            <ListOfPatients />
           </TabPanel>
           <TabPanel value={value} index={2}>
             <Signup />

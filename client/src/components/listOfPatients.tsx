@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import { useGetPatients } from '../hooks/useGetPatients'
 
-export default function List() {
+export default function ListOfPatients(): JSX.Element | null {
   const patients = useGetPatients()
 
   return patients ? (
