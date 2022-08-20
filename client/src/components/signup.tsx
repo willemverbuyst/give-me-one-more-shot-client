@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Box,
   Button,
@@ -10,13 +11,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { isValidBSN } from 'bsn-js'
 import { useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import { isValidBSN } from 'bsn-js'
-import { Gender, Patient } from './models'
-import { REGEX_BIRTHDATE } from './constants'
+import { REGEX_BIRTHDATE } from '../constants'
+import { Gender, Patient } from '../models'
 
 const schema = z.object({
   birthdate: z.string().min(10).max(10).regex(REGEX_BIRTHDATE, {

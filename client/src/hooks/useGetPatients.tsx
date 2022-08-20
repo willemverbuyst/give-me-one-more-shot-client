@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import axios, { AxiosResponse } from 'axios'
 import toast from 'react-hot-toast'
-import { axiosInstance } from './axiosInstance'
-import { SERVER_ERROR } from './constants'
-import { ApiError, Patient } from './models'
-import { queryKeys } from './reactQuery/constants'
+import { axiosInstance } from '../axiosInstance'
+import { SERVER_ERROR } from '../constants'
+import { ApiError, Patient } from '../models'
+import { queryKeys } from '../reactQuery/constants'
 
 const notifyError = (message: string) => toast.error(message)
 
