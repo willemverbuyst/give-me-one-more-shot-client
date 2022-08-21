@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import axios, { AxiosResponse } from 'axios'
 import toast from 'react-hot-toast'
+
 import { axiosInstance } from '../axiosInstance'
 import { SERVER_ERROR } from '../constants'
 import { ApiError, Patient } from '../models'
@@ -32,6 +33,6 @@ export const getPatients = async (): Promise<Patient[] | null> => {
 
 export const useGetPatients = () => {
   const { data } = useQuery([queryKeys.PATIENTS], getPatients)
-  const patients = data ? data : []
+  const patients = data || []
   return patients
 }

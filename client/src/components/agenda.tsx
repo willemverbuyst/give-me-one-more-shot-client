@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material'
 import dayjs from 'dayjs'
+
 import { MonthDetails } from '../models'
 
 export default function Agenda(): JSX.Element {
