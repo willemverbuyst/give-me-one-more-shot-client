@@ -12,7 +12,7 @@ export default function ListOfPatients(): JSX.Element | null {
 
   return patients ? (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 800 }} aria-label="simple table">
+      <Table sx={{ minWidth: 800 }} aria-label="table with patient data">
         <TableHead>
           <TableRow>
             <TableCell align="left">Family Name</TableCell>
