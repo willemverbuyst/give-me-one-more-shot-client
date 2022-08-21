@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react'
 import { Grid } from '@mui/material'
 import Box from '@mui/material/Box'
@@ -9,6 +10,7 @@ import ListOfPatients from './listOfPatients'
 import Signup from './signup'
 
 interface TabPanelProps {
+  // eslint-disable-next-line react/require-default-props
   children?: React.ReactNode
   index: number
   value: number

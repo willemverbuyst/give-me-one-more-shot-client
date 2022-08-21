@@ -6,10 +6,6 @@ export enum Gender {
   OTHER = 'other',
 }
 
-export interface ApiError {
-  message: string
-}
-
 export interface Patient {
   id: string
   birthdate: string

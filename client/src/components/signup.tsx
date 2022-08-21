@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import * as z from 'zod'
 import {
   Box,
@@ -52,6 +53,7 @@ function Signup(): JSX.Element {
   } = useForm<Patient>({ defaultValues, resolver: zodResolver(schema) })
 
   const submitForm: SubmitHandler<Patient> = (data) => {
+    // eslint-disable-next-line no-console
     console.log(data)
   }
 
@@ -59,7 +61,7 @@ function Signup(): JSX.Element {
     if (isSubmitSuccessful) {
       reset(defaultValues)
     }
-  }, [formState, reset])
+  }, [formState, isSubmitSuccessful, reset])
 
   return (
     <Box>
