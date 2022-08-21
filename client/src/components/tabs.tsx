@@ -1,8 +1,8 @@
+import * as React from 'react'
 import { Grid } from '@mui/material'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import * as React from 'react'
 
 import Agenda from './agenda'
 import ListOfPatients from './listOfPatients'

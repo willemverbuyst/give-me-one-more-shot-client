@@ -5,8 +5,8 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from 'react-hot-toast'
 
-import BasicTabs from '../components/tabs'
 import { queryClient } from '../reactQuery/queryClient'
+import BasicTabs from '../components/tabs'
 
 function App(): JSX.Element {
   return (
