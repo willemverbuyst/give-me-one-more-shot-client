@@ -24,6 +24,8 @@ jobs:
         with:
           go-version: '1.18.3'
       - uses: actions/checkout@v3
+      - name: move to server folder
+        run: cd ./server
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
