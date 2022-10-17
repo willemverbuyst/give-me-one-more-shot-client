@@ -12,8 +12,7 @@ const notifyError = (message: string) => toast.error(message)
 export const getPatients = async (): Promise<Patient[] | null> => {
   try {
     const { data } = await axiosInstance.get('/patients')
-
-    if (data) return data
+    if ('data' in data) return data.data
 
     notifyError('no data in response')
     return null
