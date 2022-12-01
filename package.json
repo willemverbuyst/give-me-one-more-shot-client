@@ -23,7 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.42.0",
     "@vitejs/plugin-react": "^2.0.1",
-    "axios": "^1.1.2",
+    "axios": "^1.2.0",
     "bsn-js": "^1.0.4",
     "dayjs": "^1.11.6",
     "eslint": "^8.22.0",
